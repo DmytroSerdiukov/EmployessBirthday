@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import Radio from "./Radio";
 
 //do refactor after passing real user data (firstName, lastName)
+interface IEmployee {
+  firstName: string;
+  lastName: string;
+}
 
-const Employee: React.FC = () => {
+const Employee: React.FC<IEmployee> = ({ firstName, lastName }) => {
   const [val, setValue] = useState<boolean>();
 
   const setEmployeeStatus = (status: boolean) => {
@@ -16,12 +20,13 @@ const Employee: React.FC = () => {
           color: val === true ? "blue" : "black",
         }}
       >
-        Dmytro Serdiukov
+        {firstName} {lastName}
       </h3>
       <Radio
         htmlFor={"notActive"}
         label={"not active"}
-        id={"notActive"}
+        id={`#${firstName}${lastName}`}
+        name={`#${firstName}${lastName}`}
         callback={setEmployeeStatus}
         value={"false"}
         defaultChecked
@@ -29,7 +34,8 @@ const Employee: React.FC = () => {
       <Radio
         htmlFor={"active"}
         label={"active"}
-        id={"active"}
+        id={`#${firstName}${lastName}`}
+        name={`#${firstName}${lastName}`}
         callback={setEmployeeStatus}
         value={"true"}
       />
