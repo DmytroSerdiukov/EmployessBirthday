@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect } from "react";
+import Employee from "./components/Employee";
 
 function App() {
   // useEffect(() => {
@@ -9,7 +10,11 @@ function App() {
   //   };
   //   getUsersData();
   // });
-  return <div></div>;
+  return (
+    <div>
+      <Employee />
+    </div>
+  );
 }
 
 export default App;
