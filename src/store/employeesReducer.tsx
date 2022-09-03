@@ -1,12 +1,13 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { EmployeesAPI } from "../api";
 
 interface EmployeesState {
   employees: any[];
+  activeEmployees: any[];
 }
 
-const initialState = { employees: [] } as EmployeesState;
+const initialState = { employees: [], activeEmployees: [] } as EmployeesState;
 
 const employeesSlice = createSlice({
   name: "employees",
@@ -34,6 +35,26 @@ const employeesSlice = createSlice({
       //   console.log(el);
       // });
     },
+    setActiveEmployees(state, action) {
+      console.log(action.payload);
+      let items: any[] = [];
+      items = state.employees.map((el) => {
+        return JSON.parse(JSON.stringify(el.items));
+      });
+      let active: any[] = [];
+      for (let i = 0; i < items.length; i++) {
+        active = [...active, ...items[i]];
+      }
+      active = active.filter((el) => el.id === action.payload);
+      state.activeEmployees = [...state.activeEmployees, ...active];
+      console.log(state.activeEmployees);
+    },
+    deleteUnactiveEmployees(state, action) {
+      state.activeEmployees = state.activeEmployees.filter(
+        (el) => el.id !== action.payload
+      );
+      console.log(state.activeEmployees);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchEmployees.fulfilled, (state, action) => {});
@@ -48,5 +69,6 @@ export const fetchEmployees = createAsyncThunk(
   }
 );
 
-export const { setEmployees } = employeesSlice.actions;
+export const { setEmployees, setActiveEmployees, deleteUnactiveEmployees } =
+  employeesSlice.actions;
 export default employeesSlice.reducer;
