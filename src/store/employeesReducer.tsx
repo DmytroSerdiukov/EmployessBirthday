@@ -30,11 +30,6 @@ const employeesSlice = createSlice({
       }
       state.employees = sorted;
     },
-    sortEmployees(state, action) {
-      // state.employees.forEach((el, index) => {
-      //   console.log(el);
-      // });
-    },
     setActiveEmployees(state, action) {
       let items: any[] = [];
       items = state.employees.map((el) => {
@@ -51,7 +46,6 @@ const employeesSlice = createSlice({
       state.activeEmployees = state.activeEmployees.filter(
         (el) => el.id !== action.payload
       );
-      console.log(state.activeEmployees);
     },
   },
   extraReducers: (builder) => {

@@ -6,7 +6,6 @@ import {
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import Radio from "./Radio";
 
-//do refactor after passing real user data (firstName, lastName)
 interface IEmployee {
   id: string;
   firstName: string;
@@ -35,6 +34,7 @@ const Employee: React.FC<IEmployee> = ({ id, firstName, lastName }) => {
         {firstName} {lastName}
       </h3>
       <Radio
+        data-testid={"notactive"}
         htmlFor={"notActive"}
         label={"not active"}
         id={`#${firstName}${lastName}`}
@@ -44,6 +44,7 @@ const Employee: React.FC<IEmployee> = ({ id, firstName, lastName }) => {
         defaultChecked
       />
       <Radio
+        data-testid={"active"}
         htmlFor={"active"}
         label={"active"}
         id={`#${firstName}${lastName}`}

@@ -19,11 +19,25 @@ function App() {
 
   return (
     <>
-      <h1 style={{ marginLeft: 100 }}>Employees</h1>
-      <div style={{ display: "flex" }}>
-        <Employees employees={employees} />
-        <EmployeeBirthdays />
-      </div>
+      {isFetching ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <h1>Loading...</h1>
+        </div>
+      ) : (
+        <>
+          <h1 style={{ marginLeft: 100 }}>Employees</h1>
+          <div style={{ display: "flex" }}>
+            <Employees employees={employees} />
+            <EmployeeBirthdays />
+          </div>
+        </>
+      )}
     </>
   );
 }
