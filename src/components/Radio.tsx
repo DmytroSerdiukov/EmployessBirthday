@@ -5,7 +5,7 @@ interface IRadio {
   value: string;
   name?: string;
   type?: string;
-  defaultChecked?: boolean;
+  checked?: boolean;
   callback: (e: any) => void;
 }
 
@@ -17,7 +17,7 @@ const Radio: React.FC<IRadio> = ({
   type = "radio",
   callback,
   value,
-  defaultChecked = false,
+  checked = false,
 }) => {
   const getEmployeeStatus = (e: any) => {
     const value = e.target.value === "true";
@@ -38,7 +38,7 @@ const Radio: React.FC<IRadio> = ({
         type={type}
         onChange={getEmployeeStatus}
         value={value}
-        defaultChecked={defaultChecked}
+        checked={checked}
       />
       {label}
     </label>

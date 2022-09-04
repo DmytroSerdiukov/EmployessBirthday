@@ -33,11 +33,6 @@ const BithdayMonth = ({ months, activeEmployees }: any) => {
                     let employee_birthday = `
                   ${el.firstName} ${el.lastName} - ${date[2]}
                    ${months[parseInt(date[1]) - 1]} ${date[0]} year`;
-                    // const birthday: any = {
-                    //   month: month,
-                    //   birthday: employee_birthday,
-                    // };
-                    // birthdays = [...birthdays, birthday];
                     return (
                       <li key={el.id}>
                         {el.firstName} {el.lastName} - {date[2]}

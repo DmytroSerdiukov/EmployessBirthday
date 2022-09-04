@@ -41,6 +41,7 @@ const employeesSlice = createSlice({
       }
       active = active.filter((el) => el.id === action.payload);
       state.activeEmployees = [...state.activeEmployees, ...active];
+      console.log("active", state.activeEmployees);
     },
     deleteUnactiveEmployees(state, action) {
       state.activeEmployees = state.activeEmployees.filter(

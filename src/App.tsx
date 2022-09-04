@@ -2,7 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import EmployeeBirthdays from "./components/EmployeeBirthdays";
 import Employees from "./components/Employees";
-import { fetchEmployees, setEmployees } from "./store/employeesReducer";
+import {
+  fetchEmployees,
+  setActiveEmployees,
+  setEmployees,
+} from "./store/employeesReducer";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 
 function App() {
@@ -11,9 +15,19 @@ function App() {
   let employees = useAppSelector((state) => state.employees.employees);
   console.log(employees);
 
+  // const getAndSetStorageKeys = () => {
+  //   const keys = Object.entries(localStorage);
+  //   console.log(keys);
+  //   for (let i = 0; i < keys.length; i++) {
+  //     console.log(keys[0][i]);
+  //     // dispatch(setActiveEmployees(keys[i][0]));
+  //   }
+  // };
+
   useEffect(() => {
     setFetching(true);
     dispatch(fetchEmployees());
+    // getAndSetStorageKeys();
     setFetching(false);
   }, []);
 
