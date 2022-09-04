@@ -36,7 +36,6 @@ const employeesSlice = createSlice({
       // });
     },
     setActiveEmployees(state, action) {
-      console.log(action.payload);
       let items: any[] = [];
       items = state.employees.map((el) => {
         return JSON.parse(JSON.stringify(el.items));
@@ -47,7 +46,6 @@ const employeesSlice = createSlice({
       }
       active = active.filter((el) => el.id === action.payload);
       state.activeEmployees = [...state.activeEmployees, ...active];
-      console.log(state.activeEmployees);
     },
     deleteUnactiveEmployees(state, action) {
       state.activeEmployees = state.activeEmployees.filter(
