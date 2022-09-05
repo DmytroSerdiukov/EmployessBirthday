@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { Action, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { EmployeesAPI } from "../api";
+import { EmployeeSpace } from "./../interfaces";
 
 interface EmployeesState {
-  employees: any[];
-  activeEmployees: any[];
+  employees: EmployeeSpace.IEmployeesArray[];
+  activeEmployees: EmployeeSpace.IEmployee[];
 }
 
 const initialState = { employees: [], activeEmployees: [] } as EmployeesState;
@@ -13,12 +13,15 @@ const employeesSlice = createSlice({
   name: "employees",
   initialState,
   reducers: {
-    setEmployees(state, action) {
+    setEmployees(state: EmployeesState, action) {
       const employees = action.payload;
       let sorted: any = [];
       for (let i = 65; i < 91; i++) {
         const letter = String.fromCharCode(i);
-        let filtered: any = { letter: letter, items: [] };
+        let filtered: EmployeeSpace.IEmployeesArray = {
+          letter: letter,
+          items: [],
+        };
         for (let i = 0; i < employees.length; i++) {
           const filteredCopy = JSON.parse(JSON.stringify(filtered));
           if (employees[i].firstName.charAt(0) === letter) {
@@ -30,7 +33,7 @@ const employeesSlice = createSlice({
       }
       state.employees = sorted;
     },
-    setActiveEmployees(state, action) {
+    setActiveEmployees(state: EmployeesState, action) {
       let items: any[] = [];
       items = state.employees.map((el) => {
         return JSON.parse(JSON.stringify(el.items));
@@ -41,9 +44,8 @@ const employeesSlice = createSlice({
       }
       active = active.filter((el) => el.id === action.payload);
       state.activeEmployees = [...state.activeEmployees, ...active];
-      console.log("active", state.activeEmployees);
     },
-    deleteUnactiveEmployees(state, action) {
+    deleteUnactiveEmployees(state: EmployeesState, action) {
       state.activeEmployees = state.activeEmployees.filter(
         (el) => el.id !== action.payload
       );

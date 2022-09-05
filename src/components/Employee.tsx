@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { EmployeeSpace } from "../interfaces";
 import {
   deleteUnactiveEmployees,
   setActiveEmployees,
 } from "../store/employeesReducer";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppDispatch } from "../store/hooks";
 import Radio from "./Radio";
 
-interface IEmployee {
-  id: string;
-  firstName: string;
-  lastName: string;
-}
+// interface IEmployee {
+//   id: string;
+//   firstName: string;
+//   lastName: string;
+// }
 
-const Employee: React.FC<IEmployee> = ({ id, firstName, lastName }) => {
+const Employee: React.FC<EmployeeSpace.IEmployee> = ({
+  id,
+  firstName,
+  lastName,
+  dob,
+}) => {
   const [val, setValue] = useState<boolean>(false);
 
   useEffect(() => {
@@ -20,7 +26,6 @@ const Employee: React.FC<IEmployee> = ({ id, firstName, lastName }) => {
     for (let i = 0; i < keys.length; i++) {
       if (keys[i][0] === id) {
         setEmployeeStatus(true);
-        console.log(val);
         return;
       }
       setValue(false);

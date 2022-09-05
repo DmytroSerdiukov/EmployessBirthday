@@ -1,10 +1,7 @@
+import { EmployeeSpace } from "../interfaces";
 import Employee from "./Employee";
 
-interface EmployeesProps {
-  employees: any[];
-}
-
-const Employees: React.FC<EmployeesProps> = ({ employees }) => {
+const Employees: React.FC<EmployeeSpace.EmployeesProps> = ({ employees }) => {
   return (
     <div
       style={{
@@ -15,28 +12,31 @@ const Employees: React.FC<EmployeesProps> = ({ employees }) => {
         padding: 20,
       }}
     >
-      {employees.map((el) => (
+      {employees.map((el: EmployeeSpace.IEmployeesArray) => (
         <div key={el.letter} style={{ marginRight: 50 }}>
           <h2>{el.letter}</h2>
           <div>
             {el.items && el.items.length > 0 ? (
               el.items
                 .slice()
-                .sort((a: any, b: any) => {
-                  if (a.firstName < b.firstName) {
-                    return -1;
+                .sort(
+                  (a: EmployeeSpace.IEmployee, b: EmployeeSpace.IEmployee) => {
+                    if (a.firstName < b.firstName) {
+                      return -1;
+                    }
+                    if (a.firstName > b.firstName) {
+                      return 1;
+                    }
+                    return 0;
                   }
-                  if (a.firstName > b.firstName) {
-                    return 1;
-                  }
-                  return 0;
-                })
-                .map((item: any) => (
+                )
+                .map((item: EmployeeSpace.IEmployee) => (
                   <Employee
                     key={item.id}
                     id={item.id}
                     firstName={item.firstName}
                     lastName={item.lastName}
+                    dob={item.lastName}
                   />
                 ))
             ) : (

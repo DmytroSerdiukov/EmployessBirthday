@@ -1,7 +1,15 @@
-import { useEffect } from "react";
 import { useAppSelector } from "../store/hooks";
+import { EmployeeSpace } from "../interfaces";
 
-const BithdayMonth = ({ months, activeEmployees }: any) => {
+interface IBirthdayMonthProps {
+  months: string[];
+  activeEmployees: EmployeeSpace.IEmployee[];
+}
+
+const BithdayMonth: React.FC<IBirthdayMonthProps> = ({
+  months,
+  activeEmployees,
+}) => {
   return (
     <div
       style={{
@@ -12,33 +20,30 @@ const BithdayMonth = ({ months, activeEmployees }: any) => {
       }}
     >
       {activeEmployees.length > 0 ? (
-        months.map((month: any) => (
+        months.map((month: string) => (
           <div>
             <h1>{month}</h1>
             <ul>
               {activeEmployees
                 .slice()
-                .sort((a: any, b: any) => {
-                  if (a.lastName < b.lastName) {
-                    return -1;
+                .sort(
+                  (a: EmployeeSpace.IEmployee, b: EmployeeSpace.IEmployee) => {
+                    if (a.lastName < b.lastName) {
+                      return -1;
+                    }
+                    if (a.lastName > b.lastName) {
+                      return 1;
+                    }
+                    return 0;
                   }
-                  if (a.lastName > b.lastName) {
-                    return 1;
-                  }
-                  return 0;
-                })
-                .map((el: any) => {
+                )
+                .map((el: EmployeeSpace.IEmployee) => {
                   const date = el.dob.slice(0, 10).split("-");
                   if (month === months[parseInt(date[1]) - 1]) {
                     let employee_birthday = `
                   ${el.firstName} ${el.lastName} - ${date[2]}
                    ${months[parseInt(date[1]) - 1]} ${date[0]} year`;
-                    return (
-                      <li key={el.id}>
-                        {el.firstName} {el.lastName} - {date[2]}
-                        {months[parseInt(date[1]) - 1]}, {date[0]} year
-                      </li>
-                    );
+                    return <li key={el.id}>{employee_birthday}</li>;
                   }
                 })}
             </ul>
@@ -56,7 +61,7 @@ const EmployeeBirthdays = () => {
     (state) => state.employees.activeEmployees
   );
 
-  const months = [
+  const months: string[] = [
     "January",
     "February",
     "March",
