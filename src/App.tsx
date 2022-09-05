@@ -29,8 +29,13 @@ const App: React.FC = () => {
         </div>
       ) : (
         <>
-          <h1 style={{ marginLeft: 100 }}>Employees</h1>
-          <div style={{ display: "flex" }}>
+          <div
+            style={{
+              display: "flex",
+              marginTop: 100,
+              justifyContent: "center",
+            }}
+          >
             <Employees employees={employees} />
             <EmployeeBirthdays />
           </div>
